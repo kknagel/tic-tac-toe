@@ -7,22 +7,25 @@ public class TicTacToe {
     public void playGame() {
         int x;
         int player1Move = 0, player2Move = 0; //player square selection
-        String again = "N"; //default value for another game? message
+        //String again = "N"; //default value for another game? message
         boolean spaceOpen = false, roundDone = false;
         int gameCounter = 0;
         int numberOfDraws = 0;
+        char userAnswer;
 
         GameBoard gb = new GameBoard();
         System.out.println("****************************");
         System.out.println("** Welcome to Tic-Tac-Toe **");
         System.out.println("****************************\n");
 
-        Player player1 = new Player("Player1");
-        Player player2 = new Player("Player2");
-        if (player1.getGameMarker() == 'X') { //set player 2 mark opposite player1
-            player2.setGameMarker('O');
-        } else player2.setGameMarker('X');
+        Player player1 = new Player(getPlayerName("Player1"), userAnswer = getUserResponse("Enter marker desired (X/O)?", new String[]{"X", "O"})); //set player1
+        Player player2; //need to create object reference
 
+        if (userAnswer == 'X'){   //set player2 name and opposite marker
+            player2 = new Player(getPlayerName("Player2"), 'O');
+        } else {
+            player2 = new Player(getPlayerName("Player2"), 'X');
+        }
 
         do {
             do {
@@ -72,17 +75,11 @@ public class TicTacToe {
             roundDone = false;
             gameCounter += 1; //retain number played
 
-            System.out.println("Want to play again? (Y/N) ");
-            Scanner playAgain = new Scanner(System.in);
-            while (playAgain.hasNext()) {
-                System.out.println("Enter Y or N");
-                again = playAgain.next();
-                if (again.equalsIgnoreCase("Y")) {
-                    gb = new GameBoard(); //start new game
-                    break;
-                } else if (again.equalsIgnoreCase("N")) break;
+            userAnswer = getUserResponse("Want to play again? (Y/N)", new String[] {"Y", "N"}); //play again
+            if (userAnswer == 'Y') {
+                gb = new GameBoard(); //start new game
             }
-        } while (again.equalsIgnoreCase("Y"));
+        } while (userAnswer == 'Y');
 
 
         // display total games / wins and declare champion
@@ -118,5 +115,34 @@ public class TicTacToe {
         } else if (player1.getWinCounter() < player2.getWinCounter()) {
             System.out.println("\n********** " + player2.getName() + " IS THE CHAMPION **********");
         } else System.out.println("\n*************** TIE SCORE ***************");
+    }
+
+    private String getPlayerName(String name){
+
+        System.out.println("Please enter name for " + name);  //get player name
+        Scanner getName = new Scanner(System.in);
+        name = getName.next().toUpperCase();
+
+        return name;
+    }
+
+    public char getUserResponse(String message, String[] values){ //get x/o or y/n response from user
+        String answer;
+        char result = ' ';
+
+        System.out.println(message);
+        Scanner getMarker = new Scanner(System.in);
+
+        while (getMarker.hasNext()) {
+            answer = getMarker.next();
+                if (answer.equalsIgnoreCase(values[0])) {
+                        result = values[0].charAt(0);
+                    break;
+                } else if (answer.equalsIgnoreCase(values[1])) {
+                        result = values[1].charAt(0);
+                    break;
+                }
+            }
+        return result;
     }
 }

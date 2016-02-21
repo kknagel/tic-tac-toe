@@ -21,11 +21,11 @@ public class GameBoard {
         }
     }
 
-//    public static void main(String[] args){
-//        GameBoard gb = new GameBoard();
-//        gb.testGameboard();
-//
-//    }
+    public static void main(String[] args){
+        GameBoard gb = new GameBoard();
+        gb.testGameboard();
+
+    }
 
     public void display() {
         int x;
@@ -101,7 +101,7 @@ public class GameBoard {
         //not sure why we need this
     }
 
-    public void testGameboard(){
+    private void testGameboard(){
         int x;
         int[] zeroRecords = {1,2,3};
 
@@ -112,7 +112,7 @@ public class GameBoard {
         updateSquareValue(4,'O');
         display();
 
-        //test is swuare open
+        //test is square open
         System.out.println("Is square 3 open? " + isSquareOpen(3));
         System.out.println("Is square 8 open? " + isSquareOpen(8));
         System.out.println("Is square 4 open? " + isSquareOpen(4));
@@ -149,7 +149,12 @@ public class GameBoard {
         updateSquareValue(2,'O');
         display();
 
+        //get square value
+        System.out.println("square 9 should have marker O " + getSquareValue(9-1));
+        System.out.println("square 5 should have marker X " + getSquareValue(5-1));
+
+
         System.out.println("Game is draw so return false " + isGameWon(2, 'O'));
-        System.out.println(getOpenSquares().length);
+        System.out.println("number of open squares " + getOpenSquares().length);
     }
 }
