@@ -86,7 +86,7 @@ public class GameBoard {
         if (squareIsOpen) {
             return true;
         } else {
-            if (playerName != "CPU") {
+            if (playerName != "CPU") { //avoid reporting error if CPU
                 System.out.println("Sorry the square you selected is not available, try again.");
             }
             return false;

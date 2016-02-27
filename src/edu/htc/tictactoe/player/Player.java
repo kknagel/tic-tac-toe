@@ -20,7 +20,7 @@ public abstract class Player {
         this.gameMarker = marker;
     }
 
-    public abstract int getMove();
+    public abstract int getMove(); //get move based on user type
 
     public void setGameMarker(char gameMarker) { //set game marker for player
         this.gameMarker = gameMarker;

@@ -27,12 +27,12 @@ public class TicTacToe {
 
         myPlayers[0] = new HumanPlayer(getPlayerName("Player1"), userAnswer = getUserResponse("Enter marker desired (X/O)?", new String[]{"X", "O"})); //set player1
 
-        if (userAnswer == 'X') userAnswer = 'O';
+        if (userAnswer == 'X') userAnswer = 'O'; //play as x or o
             else userAnswer = 'X';
 
         switch (userPCAnswer){
             case 'Y':
-                myPlayers[1] = new ComputerPlayer("CPU", userAnswer);
+                myPlayers[1] = new ComputerPlayer("CPU", userAnswer); //play against pc
                 break;
             case 'N':
                 myPlayers[1] = new HumanPlayer(getPlayerName("Player2"), userAnswer);

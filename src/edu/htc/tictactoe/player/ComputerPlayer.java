@@ -17,7 +17,7 @@ public class ComputerPlayer extends Player{
     public int getMove(){
 
         TicTacToeStrategy strategy = new RandomMoveStrategy();
-        answer = strategy.getBestMove();
+        answer = strategy.getBestMove(); //get move from computer
 
         return answer;
     }
