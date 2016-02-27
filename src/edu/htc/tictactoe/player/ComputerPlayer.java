@@ -1,5 +1,6 @@
 package edu.htc.tictactoe.player;
 
+import edu.htc.tictactoe.strategy.RandomMoveStrategy;
 import edu.htc.tictactoe.strategy.TicTacToeStrategy;
 
 /**
@@ -14,12 +15,10 @@ public class ComputerPlayer extends Player{
     }
 
     public int getMove(){
-        //TicTacToeStrategy strategy = new RandomMoveStrategy();
 
-       // strategy.getBestMove();
+        TicTacToeStrategy strategy = new RandomMoveStrategy();
+        answer = strategy.getBestMove();
 
-        //random
-        //System.out.println("Computer takes " + strategy );
         return answer;
     }
 }

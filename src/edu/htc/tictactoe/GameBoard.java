@@ -13,6 +13,7 @@ public class GameBoard {
 
     public GameBoard() {   //initialize gameboard array
         int x;
+        //char [] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
         openSquares = new ArrayList<Integer>(9);
         for (x = 1; x < 10; x++) {
@@ -78,14 +79,16 @@ public class GameBoard {
         return intArray;
     }
 
-    public boolean isSquareOpen(int open) {
+    public boolean isSquareOpen(int open, String playerName) {
         boolean squareIsOpen;
 
         squareIsOpen = openSquares.contains(new Integer(open));
         if (squareIsOpen) {
             return true;
         } else {
-            System.out.println("Sorry the square you selected is not available, try again.");
+            if (playerName != "CPU") {
+                System.out.println("Sorry the square you selected is not available, try again.");
+            }
             return false;
         }
     }
@@ -112,10 +115,10 @@ public class GameBoard {
         display();
 
         //test is square open
-        System.out.println("Is square 3 open? " + isSquareOpen(3));
-        System.out.println("Is square 8 open? " + isSquareOpen(8));
-        System.out.println("Is square 4 open? " + isSquareOpen(4));
-        System.out.println("Is square 1 open? " + isSquareOpen(1));
+        System.out.println("Is square 3 open? " + isSquareOpen(3,"TEST"));
+        System.out.println("Is square 8 open? " + isSquareOpen(8,"TEST"));
+        System.out.println("Is square 4 open? " + isSquareOpen(4,"TEST"));
+        System.out.println("Is square 1 open? " + isSquareOpen(1,"TEST"));
 
         //test is game won
         System.out.println("\nis game won? " + isGameWon(3, 'X'));

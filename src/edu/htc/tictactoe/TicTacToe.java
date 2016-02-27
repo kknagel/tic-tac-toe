@@ -47,7 +47,7 @@ public class TicTacToe {
                     spaceOpen = false;
                     while (!spaceOpen) {
                         playerMove = myPlayers[x].getMove(); //get valid move
-                        spaceOpen = gb.isSquareOpen(playerMove); // need open square
+                        spaceOpen = gb.isSquareOpen(playerMove, myPlayers[x].getName()); // need open square
                     }
                     gb.updateSquareValue(playerMove, myPlayers[x].getGameMarker());
                     roundDone = gb.isGameWon(playerMove, myPlayers[x].getGameMarker()); //winner?
