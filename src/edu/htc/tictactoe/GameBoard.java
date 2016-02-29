@@ -7,14 +7,13 @@ import java.util.ArrayList;
  */
 
 public class GameBoard {
-    public ArrayList<Integer> openSquares;
-    public char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    int[][] winCombinations = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
+    public static ArrayList<Integer> openSquares;
+    public static char[] board;
+    public static int[][] winCombinations = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
 
     public GameBoard() {   //initialize gameboard array
         int x;
-        //char [] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
+        board = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9'};
         openSquares = new ArrayList<Integer>(9);
         for (x = 1; x < 10; x++) {
             openSquares.add(x);
@@ -79,7 +78,7 @@ public class GameBoard {
         return intArray;
     }
 
-    public boolean isSquareOpen(int open, String playerName) {
+    public static boolean isSquareOpen(int open, String playerName) {
         boolean squareIsOpen;
 
         squareIsOpen = openSquares.contains(new Integer(open));
