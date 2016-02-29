@@ -43,7 +43,9 @@ public class TicTacToe {
             do {
                 gb.display();
                 if (!roundDone) {
-                    System.out.println(myPlayers[x].getName() + "(" + myPlayers[x].getGameMarker() + ") please enter square to take: ");
+                    if (myPlayers[x].getName() != "CPU") {
+                        System.out.println(myPlayers[x].getName() + "(" + myPlayers[x].getGameMarker() + ") please enter square to take: ");
+                    }
                     spaceOpen = false;
                     while (!spaceOpen) {
                         playerMove = myPlayers[x].getMove(); //get valid move
