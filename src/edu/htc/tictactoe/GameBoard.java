@@ -159,3 +159,4 @@ public class GameBoard {
         System.out.println("number of open squares " + getOpenSquares().length);
     }
 }
+

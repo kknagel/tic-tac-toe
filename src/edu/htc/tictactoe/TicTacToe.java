@@ -7,6 +7,7 @@ import edu.htc.tictactoe.player.Player;
 import java.util.Scanner;
 
 public class TicTacToe {
+    public static int levelOfPlay=0;
 
     public void playGame() {
         int x = 0;
@@ -33,6 +34,7 @@ public class TicTacToe {
         switch (userPCAnswer){
             case 'Y':
                 myPlayers[1] = new ComputerPlayer("CPU", userAnswer); //play against pc
+                levelOfPlay = getUserNumericResponse("1. Simple\n2. Easy\n3. Medium\n4. Hard\n\nEnter selection 1-4", 1, 4); //play  level 1-4
                 break;
             case 'N':
                 myPlayers[1] = new HumanPlayer(getPlayerName("Player2"), userAnswer);
@@ -52,6 +54,7 @@ public class TicTacToe {
                         spaceOpen = gb.isSquareOpen(playerMove, myPlayers[x].getName()); // need open square
                     }
                     gb.updateSquareValue(playerMove, myPlayers[x].getGameMarker());
+                    gb.display();
                     roundDone = gb.isGameWon(playerMove, myPlayers[x].getGameMarker()); //winner?
 
                     if (roundDone) {
@@ -140,5 +143,30 @@ public class TicTacToe {
             }
         }
         return result;
+    }
+    public int getUserNumericResponse(String message, int low, int high){
+        String keyboardInput;
+        boolean digits;
+        int numericAnswer=0;
+
+        System.out.println(message);
+
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            keyboardInput = scanner.next();         //request input from user
+            digits = keyboardInput.matches("\\d"); //must be numeric
+
+            if (!digits) {
+                System.out.println("Enter value " + low + " - " + high);
+            } else {
+                numericAnswer = Integer.parseInt(keyboardInput);
+                if (numericAnswer >= low && numericAnswer <= high) {
+                    break;
+                } else System.out.println("Enter value " + low + " - " + high);
+            }
+        }
+
+
+        return numericAnswer;
     }
 }
