@@ -18,30 +18,23 @@ public class TicTacToe {
         int gameCounter = 0;
         int numberOfDraws = 0;
         char userAnswer;
-        char userPCAnswer;
 
         GameBoard gb = new GameBoard();
         System.out.println("****************************");
         System.out.println("** Welcome to Tic-Tac-Toe **");
         System.out.println("****************************\n");
 
-        userPCAnswer = getUserResponse("Hi, do you want to play against the computer? (Y/N)", new String[]{"Y", "N"}); //play against computer
-        Player[] myPlayers = new Player[2];
+        levelOfPlay = getUserNumericResponse("1. Play with friend\n2. Play Against CPU Simple\n3. Play against CPU Easy\n4. Play against CPU Medium\n5. Play against CPU Hard\n\nEnter selection 1-5", 1, 5); //play  level 1-4
 
+        Player[] myPlayers = new Player[2];
         myPlayers[0] = new HumanPlayer(getPlayerName("Player1"), userAnswer = getUserResponse("Enter marker desired (X/O)?", new String[]{"X", "O"})); //set player1
 
         if (userAnswer == 'X') userAnswer = 'O'; //play as x or o
             else userAnswer = 'X';
 
-        switch (userPCAnswer){
-            case 'Y':
-                myPlayers[1] = new ComputerPlayer("CPU", userAnswer); //play against pc
-                levelOfPlay = getUserNumericResponse("1. Simple\n2. Easy\n3. Medium\n4. Hard\n\nEnter selection 1-4", 1, 4); //play  level 1-4
-                break;
-            case 'N':
-                myPlayers[1] = new HumanPlayer(getPlayerName("Player2"), userAnswer);
-                break;
-        }
+        if (levelOfPlay > 1){
+            myPlayers[1] = new ComputerPlayer("CPU", userAnswer); //play against pc
+        } else myPlayers[1] = new HumanPlayer(getPlayerName("Player2"), userAnswer);
 
         if (DEBUG_MESSAGES){
             System.out.println("Human Player1: " + myPlayers[0].getGameMarker());

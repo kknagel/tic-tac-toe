@@ -22,15 +22,15 @@ public class ComputerPlayer extends Player{
         } else human = 'X';
 
         switch (TicTacToe.levelOfPlay){
-            case 1:
+            case 2:
                 TicTacToeStrategy strategy = new RandomMoveStrategy();
                 answer = strategy.getBestMove(); //get move from computer
                 break;
-            case 2:
+            case 3:
                 strategy = new BestOpenMoveStrategy();
                 answer = strategy.getBestMove(); //get move from computer
                 break;
-            case 3:
+            case 4:
                 strategy = new BlockWinStrategy();
                 answer = strategy.getBestMove(human); //get move from computer that block any win / get best open
                 if (answer == -1) {
@@ -38,7 +38,7 @@ public class ComputerPlayer extends Player{
                     answer = strategy2.getBestMove(); //get move from computer
                 }
                 break;
-            case 4:
+            case 5:
                 strategy = new GoForWinStrategy();
                 answer = strategy.getBestMove(super.gameMarker); //get move from computer that block any win / get best open
                 if (answer == -1){
