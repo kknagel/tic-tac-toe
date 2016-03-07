@@ -54,7 +54,7 @@ public class GameBoard {
     public boolean isGameWon(int lastMove, char playerMark) {
 
         boolean result = false;
-        int x, y, z;
+        int x, y;
 
         for (x = 0; x < winCombinations.length; x++) {
             for (y = 0; y < 3; y++) {
@@ -97,8 +97,8 @@ public class GameBoard {
         openSquares.remove(new Integer(number));
     }
 
-    public char getSquareValue(int square) {
-        return this.board[square];
+    public static char getSquareValue(int square) {
+        return board[square];
         //not sure why we need this
     }
 

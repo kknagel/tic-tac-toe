@@ -8,8 +8,10 @@ import java.util.Scanner;
 
 public class TicTacToe {
     public static int levelOfPlay=0;
+    public static final boolean DEBUG_MESSAGES = false; //show messages to validate play
 
     public void playGame() {
+
         int x = 0;
         int playerMove = 0; //player square selection
         boolean spaceOpen = false, roundDone = false;
@@ -41,6 +43,11 @@ public class TicTacToe {
                 break;
         }
 
+        if (DEBUG_MESSAGES){
+            System.out.println("Human Player1: " + myPlayers[0].getGameMarker());
+            System.out.println("CPU/Human Player2: " + myPlayers[1].getGameMarker());
+        }
+
         do {
             do {
                 gb.display();
@@ -54,12 +61,12 @@ public class TicTacToe {
                         spaceOpen = gb.isSquareOpen(playerMove, myPlayers[x].getName()); // need open square
                     }
                     gb.updateSquareValue(playerMove, myPlayers[x].getGameMarker());
-                    gb.display();
+                    //gb.display();
                     roundDone = gb.isGameWon(playerMove, myPlayers[x].getGameMarker()); //winner?
 
                     if (roundDone) {
                         myPlayers[x].addWin();
-                        System.out.println(myPlayers[x].getName() + " wins!");
+                        System.out.println(myPlayers[x].getName() + " wins with play at square number: " + playerMove);
                     } else if (gb.getOpenSquares().length == 0) { //if array is empty then it is a draw
                         roundDone = true;
                         numberOfDraws += 1;

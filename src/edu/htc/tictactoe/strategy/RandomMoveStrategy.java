@@ -27,4 +27,9 @@ public class RandomMoveStrategy extends TicTacToeStrategy {
         return result;
     }
 
+    public int getBestMove(char playerMark){
+        int result = 0;
+        return result;
+    }
+
 }

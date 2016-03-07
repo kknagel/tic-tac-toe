@@ -1,8 +1,6 @@
 package edu.htc.tictactoe.player;
 
-import edu.htc.tictactoe.strategy.BestOpenMoveStrategy;
-import edu.htc.tictactoe.strategy.RandomMoveStrategy;
-import edu.htc.tictactoe.strategy.TicTacToeStrategy;
+import edu.htc.tictactoe.strategy.*;
 import edu.htc.tictactoe.TicTacToe;
 
 
@@ -18,6 +16,10 @@ public class ComputerPlayer extends Player{
     }
 
     public int getMove(){
+        char human;
+        if (super.gameMarker == 'X'){
+            human = 'O';
+        } else human = 'X';
 
         switch (TicTacToe.levelOfPlay){
             case 1:
@@ -29,8 +31,25 @@ public class ComputerPlayer extends Player{
                 answer = strategy.getBestMove(); //get move from computer
                 break;
             case 3:
-
+                strategy = new BlockWinStrategy();
+                answer = strategy.getBestMove(human); //get move from computer that block any win / get best open
+                if (answer == -1) {
+                    TicTacToeStrategy strategy2 = new BestOpenMoveStrategy();
+                    answer = strategy2.getBestMove(); //get move from computer
+                }
+                break;
             case 4:
+                strategy = new GoForWinStrategy();
+                answer = strategy.getBestMove(super.gameMarker); //get move from computer that block any win / get best open
+                if (answer == -1){
+                    strategy = new BlockWinStrategy();
+                    answer = strategy.getBestMove(human); //get move from computer that block any win / get best open
+                }
+                if (answer == -1) {
+                    TicTacToeStrategy strategy2 = new BestOpenMoveStrategy();
+                    answer = strategy2.getBestMove(); //get move from computer
+                }
+                break;
 
             default:
                 strategy = new RandomMoveStrategy();
@@ -38,7 +57,11 @@ public class ComputerPlayer extends Player{
                 break;
 
         }
+        if (TicTacToe.DEBUG_MESSAGES){
+            System.out.println("Computer selects " + answer);
+        }
 
         return answer;
+
     }
 }
