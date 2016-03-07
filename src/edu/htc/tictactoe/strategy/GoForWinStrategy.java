@@ -17,7 +17,6 @@ public class GoForWinStrategy extends TicTacToeStrategy{
 
         result = super.findWinFor(playerMark);
 
-
         return result;
 
     }

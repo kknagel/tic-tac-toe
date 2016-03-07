@@ -47,7 +47,7 @@ public abstract class TicTacToeStrategy {
 
         //find all odds and evens
         for (x = 0; x < GameBoard.openSquares.size(); x++) { //tried for each loop problem with index didn't start at 0
-            //System.out.println(openList.get(x));
+
             if (GameBoard.openSquares.get(x) % 2 != 0) {
                 odds.add(GameBoard.openSquares.get(x));
             } else evens.add(GameBoard.openSquares.get(x));
@@ -84,7 +84,6 @@ public abstract class TicTacToeStrategy {
 
     public int findWinFor(char playerMark){
         int[][] winCombinations = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
-        //ArrayList<Integer> playersSquares = new ArrayList<Integer>();
         int result = -1;
         //int result = 0;
         int x,y;
