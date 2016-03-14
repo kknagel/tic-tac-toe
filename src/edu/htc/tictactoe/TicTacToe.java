@@ -9,24 +9,24 @@ import java.util.Scanner;
 public class TicTacToe {
     public static int levelOfPlay=0;
     public static final boolean DEBUG_MESSAGES = false; //show messages to validate play
+    public static Player[] myPlayers = new Player[2];
+    public static int numberOfDraws = 0;
+    public static int gameCounter = 0;
 
     public void playGame() {
 
-        int x = 0;
+        int x = 0;  //players turn -- 0 is player1
         int playerMove = 0; //player square selection
         boolean spaceOpen = false, roundDone = false;
-        int gameCounter = 0;
-        int numberOfDraws = 0;
         char userAnswer;
 
         GameBoard gb = new GameBoard();
-        System.out.println("****************************");
-        System.out.println("** Welcome to Tic-Tac-Toe **");
-        System.out.println("****************************\n");
 
-        levelOfPlay = getUserNumericResponse("1. Play with friend\n2. Play Against CPU Simple\n3. Play against CPU Easy\n4. Play against CPU Medium\n5. Play against CPU Hard\n\nEnter selection 1-5", 1, 5); //play  level 1-4
+        if (DEBUG_MESSAGES) {
+            System.out.println("Simple-CPU random; Easy-CPU best open; Medium-Block player1; Hard-Go for win");
+        }
+        levelOfPlay = getUserNumericResponse("1. Play with friend\n2. Play Against CPU Simple\n3. Play against CPU Easy\n4. Play against CPU Medium\n5. Play against CPU Hard\n", 1, 5); //play  level 1-4
 
-        Player[] myPlayers = new Player[2];
         myPlayers[0] = new HumanPlayer(getPlayerName("Player1"), userAnswer = getUserResponse("Enter marker desired (X/O)?", new String[]{"X", "O"})); //set player1
 
         if (userAnswer == 'X') userAnswer = 'O'; //play as x or o
@@ -66,7 +66,7 @@ public class TicTacToe {
                         System.out.println("Game is a draw.");
                     }
                 }
-                if (x == 0) {
+                if (x == 0) {  //if player1 is current switch to player2
                     x = 1;
                 } else x = 0;
             } while (!roundDone);
@@ -80,42 +80,13 @@ public class TicTacToe {
                 x = 0;
             }
         } while (userAnswer == 'Y');
-
-        // display total games / wins and declare champion
-        System.out.println("\nThanks for playing!\n");
-
-        System.out.print(myPlayers[0].getName() + " (" + myPlayers[0].getGameMarker() + ") "); //player 1 wins
-        for (x = 0; x < 35 - myPlayers[0].getName().length(); x++) {
-            System.out.print("-");
-        }
-        System.out.println(": " + myPlayers[0].getWinCounter());
-
-        System.out.print(myPlayers[1].getName() + " (" + myPlayers[1].getGameMarker() + ") "); //player 2 wins
-        for (x = 0; x < 35 - myPlayers[1].getName().length(); x++) {
-            System.out.print("-");
-        }
-        System.out.println(": " + myPlayers[1].getWinCounter());
-
-        System.out.print("DRAWS "); //number of ties
-        for (x = 0; x < 34; x++) {
-            System.out.print("-");
-        }
-        System.out.print(": ");
-        System.out.println(numberOfDraws);
-
-        System.out.print("TOTAL GAMES "); //total games played
-        for (x = 0; x < 28; x++) {
-            System.out.print("-");
-        }
-        System.out.println(": " + gameCounter);
-
-        if (myPlayers[0].getWinCounter() > myPlayers[1].getWinCounter()) {    //grand champion
-            System.out.println("\n********** " + myPlayers[0].getName() + " IS THE CHAMPION **********");
-        } else if (myPlayers[0].getWinCounter() < myPlayers[1].getWinCounter()) {
-            System.out.println("\n********** " + myPlayers[1].getName() + " IS THE CHAMPION **********");
-        } else System.out.println("\n*************** TIE SCORE ***************");
     }
 
+    /******************************************
+     *
+     *      helper methods to get user input
+     *
+     ******************************************/
     private String getPlayerName(String name) {
 
         System.out.println("Please enter name for " + name);  //get player name
@@ -132,41 +103,35 @@ public class TicTacToe {
         System.out.println(message);
         Scanner getMarker = new Scanner(System.in);
 
-        while (getMarker.hasNext()) {
+        answer = getMarker.next();
+        while (!answer.equalsIgnoreCase(values[0]) && !answer.equalsIgnoreCase(values[1])) {    //more shapes
+            System.out.println("Sorry, you must enter either " + values[0] + " or " + values[1]);
             answer = getMarker.next();
-            if (answer.equalsIgnoreCase(values[0])) {
-                result = values[0].charAt(0);
-                break;
-            } else if (answer.equalsIgnoreCase(values[1])) {
-                result = values[1].charAt(0);
-                break;
-            }
         }
+        result = answer.toUpperCase().charAt(0);
+
         return result;
     }
-    public int getUserNumericResponse(String message, int low, int high){
-        String keyboardInput;
-        boolean digits;
-        int numericAnswer=0;
+
+    public static int getUserNumericResponse(String message, int low, int high){
+        int keyboardInput = 0;
 
         System.out.println(message);
 
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            keyboardInput = scanner.next();         //request input from user
-            digits = keyboardInput.matches("\\d"); //must be numeric
+        do {
+            System.out.println("Enter selection " + low + " - " + high);
 
-            if (!digits) {
-                System.out.println("Enter value " + low + " - " + high);
-            } else {
-                numericAnswer = Integer.parseInt(keyboardInput);
-                if (numericAnswer >= low && numericAnswer <= high) {
-                    break;
-                } else System.out.println("Enter value " + low + " - " + high);
+            try {
+                keyboardInput = Integer.parseInt(scanner.next());            //get size and catch string data
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a integer value " + low + " - " + high);
+            } catch (Exception other) {
+                System.out.println("Something else happened");
             }
-        }
 
+        } while (keyboardInput < low || keyboardInput > high);
 
-        return numericAnswer;
+        return keyboardInput;
     }
 }

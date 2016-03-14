@@ -13,11 +13,9 @@ import java.util.stream.Collector;
 public abstract class TicTacToeStrategy {
 
     public TicTacToeStrategy() {
-
     }
 
     public TicTacToeStrategy(GameBoard gameBoard) {
-
     }
 
     public abstract int getBestMove();
@@ -39,7 +37,7 @@ public abstract class TicTacToeStrategy {
     protected int getBestOpenMove() {
         //protected int getBestOpenMove(GameBoard board) {
 
-            int x;
+        int x;
         int result;
 
         ArrayList<Integer> odds = new ArrayList<Integer>();
@@ -49,15 +47,15 @@ public abstract class TicTacToeStrategy {
         for (x = 0; x < GameBoard.openSquares.size(); x++) { //tried for each loop problem with index didn't start at 0
 
             if (GameBoard.openSquares.get(x) % 2 != 0) {
-                odds.add(GameBoard.openSquares.get(x));
-            } else evens.add(GameBoard.openSquares.get(x));
+                odds.add(GameBoard.openSquares.get(x)); //build array of odd numbers that are open
+            } else evens.add(GameBoard.openSquares.get(x)); //build array of even numbers that are open
         }
         int oddSize = odds.size();
         int evenSize = evens.size();
         if (TicTacToe.DEBUG_MESSAGES) {
-            System.out.println("Play best open move strategy");
+            System.out.println("\nPlay best open move strategy");
         }
-        if (oddSize > 0){
+        if (oddSize > 0) {
             if (GameBoard.isSquareOpen(5, "CPU")) {
                 if (TicTacToe.DEBUG_MESSAGES) {
                     System.out.println("Found 5 open");
@@ -82,40 +80,40 @@ public abstract class TicTacToeStrategy {
 
     }
 
-    public int findWinFor(char playerMark){
+    public int findWinFor(char playerMark) {
         int[][] winCombinations = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
         int result = -1;
         //int result = 0;
-        int x,y;
-        int count, index=-1;
+        int x, y;
+        int count, index = -1;
         if (TicTacToe.DEBUG_MESSAGES) {
             System.out.println("\nFind a blocking/winning move strategy");
         }
-        for (x = 0; x < winCombinations.length; x++) {
+        for (x = 0; x < winCombinations.length; x++) {  //cycle array of arrays
             count = 0;
             index = -1;
-            for (y = 0; y < 3; y++) {
+            for (y = 0; y < 3; y++) {       //cycle through sub arrays
                 if (TicTacToe.DEBUG_MESSAGES) {
-                System.out.print(winCombinations[x][y]);
-                System.out.print(GameBoard.board[winCombinations[x][y] -1]);
+                    System.out.print(winCombinations[x][y]);
+                    System.out.print(GameBoard.board[winCombinations[x][y] - 1]);
                 }
-                if (GameBoard.board[winCombinations[x][y] - 1] == playerMark ){
-                           count +=1;
-                } else index = y;
+                if (GameBoard.board[winCombinations[x][y] - 1] == playerMark) {
+                    count += 1;  //found mark
+                } else index = y; //space open
             }
             if (TicTacToe.DEBUG_MESSAGES) {
                 System.out.print(" ");
             }
-                if (count == 2){
-                result = Character.getNumericValue(GameBoard.board[winCombinations[x][index] - 1]);
+            if (count == 2) { //possible win/block
+                result = Character.getNumericValue(GameBoard.board[winCombinations[x][index] - 1]); //is the index space number or character
                 if (result > 9) {
-                    result = -1; // charcter is larger than 9 and therefore a character
-                    if (TicTacToe.DEBUG_MESSAGES){
+                    result = -1; // character is larger than 9 and therefore a character not a digit
+                    if (TicTacToe.DEBUG_MESSAGES) {
                         System.out.println("Skipping for opponent at: " + result);
                     }
                     continue;
                 } else {
-                    if (TicTacToe.DEBUG_MESSAGES){
+                    if (TicTacToe.DEBUG_MESSAGES) {
                         System.out.println("Found block at: " + result);
                     }
                     break;
@@ -132,7 +130,7 @@ public abstract class TicTacToeStrategy {
 //        //testGetBestOpenMove();
 //        testBlockWinStrategy();
 //    }
-
+//
 //    public static void testGetRandomMove() {
 //        System.out.println();
 //        System.out.println("");
@@ -168,10 +166,10 @@ public abstract class TicTacToeStrategy {
 //            System.out.println("Correct. No bad output was found in " + numberOfRuns + " tries.");
 //        }
 //    }
-//
-//    //****************************************************
-//
-//
+
+    //****************************************************
+
+
 //    public static void testGetBestOpenMove() {
 //        int x;
 //        System.out.println("**************************************");
@@ -187,7 +185,7 @@ public abstract class TicTacToeStrategy {
 //
 //        // Creates anonymous inner class with dummy getBestMove behavior.
 //        TicTacToeStrategy strategy2 = new TicTacToeStrategy(board) {
-//            public int getBestMove() {
+//            public int getBestMove('X') {
 //                return 0;
 //            }
 //        };
@@ -212,7 +210,7 @@ public abstract class TicTacToeStrategy {
 //        }
 //        board.display();
 //    }
-//
+
 //        public static void testBlockWinStrategy(){
 //
 //            System.out.println("**************************************");

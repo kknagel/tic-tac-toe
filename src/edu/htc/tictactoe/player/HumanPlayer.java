@@ -1,5 +1,7 @@
 package edu.htc.tictactoe.player;
 
+import edu.htc.tictactoe.TicTacToe;
+
 import java.util.Scanner;
 
 /**
@@ -8,30 +10,16 @@ import java.util.Scanner;
 public class HumanPlayer extends Player {
     private int squareSelected;
 
-    public HumanPlayer(String name,char marker) {
+    public HumanPlayer(String name, char marker) {
         super.name = name;
         super.gameMarker = marker;
     }
 
-
     public int getMove() {
-        String keyboardInput;
-        Boolean digits;
+        int keyboardInput = 0;
 
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            keyboardInput = scanner.next();         //request input from user
-            digits = keyboardInput.matches("\\d"); //must be numeric
+        keyboardInput = TicTacToe.getUserNumericResponse("",1,9);
 
-            if (!digits) {
-                System.out.println("Enter value 1 - 9");
-            } else {
-                squareSelected = Integer.parseInt(keyboardInput);
-                if (squareSelected > 0 && squareSelected <= 9) {
-                    break;
-                } else System.out.println("Enter value 1 - 9");
-            }
-        }
-        return squareSelected;
+        return keyboardInput;
     }
 }

@@ -12,7 +12,6 @@ public abstract class Player {
 
 
     public Player(){
-
     }
 
     public Player(String name,char marker) {
@@ -39,6 +38,6 @@ public abstract class Player {
     }
 
     public void addWin() {
-        this.winCounter += 1; //won a game
+        this.winCounter += 1; //won a round
     }
 }

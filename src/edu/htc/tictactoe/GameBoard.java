@@ -20,11 +20,7 @@ public class GameBoard {
         }
     }
 
-    public static void main(String[] args){
-        GameBoard gb = new GameBoard();
-        gb.testGameboard();
 
-    }
 
     public void display() {
         int x;
@@ -58,7 +54,7 @@ public class GameBoard {
 
         for (x = 0; x < winCombinations.length; x++) {
             for (y = 0; y < 3; y++) {
-                if (winCombinations[x][y] == lastMove) {
+                if (winCombinations[x][y] == lastMove) { //find last move in array
                     if (board[winCombinations[x][0] - 1] == playerMark &&
                             board[winCombinations[x][1] - 1] == playerMark &&
                             board[winCombinations[x][2] - 1] == playerMark) {
@@ -100,6 +96,12 @@ public class GameBoard {
     public static char getSquareValue(int square) {
         return board[square];
         //not sure why we need this
+    }
+
+    public static void main(String[] args){
+        GameBoard gb = new GameBoard();
+        gb.testGameboard();
+
     }
 
     private void testGameboard(){

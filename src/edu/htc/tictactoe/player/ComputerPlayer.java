@@ -8,52 +8,53 @@ import edu.htc.tictactoe.TicTacToe;
  * Created by KenN on 2/22/16.
  */
 public class ComputerPlayer extends Player{
-    int answer = 1;
+    private int answer = 1;
 
     public ComputerPlayer(String name,char marker) {
         super.name = name;
         super.gameMarker = marker;
     }
 
-    public int getMove(){
+    public int getMove(){   //process computer play
         char human;
-        if (super.gameMarker == 'X'){
+        if (super.gameMarker == 'X'){ //need this to find block move
             human = 'O';
         } else human = 'X';
 
         switch (TicTacToe.levelOfPlay){
+            //case 1 is human vs human
             case 2:
                 TicTacToeStrategy strategy = new RandomMoveStrategy();
-                answer = strategy.getBestMove(); //get move from computer
+                answer = strategy.getBestMove(); //get random move for computer
                 break;
             case 3:
                 strategy = new BestOpenMoveStrategy();
-                answer = strategy.getBestMove(); //get move from computer
+                answer = strategy.getBestMove(); //get best open for computer
                 break;
             case 4:
                 strategy = new BlockWinStrategy();
-                answer = strategy.getBestMove(human); //get move from computer that block any win / get best open
-                if (answer == -1) {
+                answer = strategy.getBestMove(human); //get move for computer that blocks any win
+                if (answer == -1) { //-1 means previous step failed
                     TicTacToeStrategy strategy2 = new BestOpenMoveStrategy();
-                    answer = strategy2.getBestMove(); //get move from computer
+                    answer = strategy2.getBestMove(); //get best open for computer
                 }
                 break;
             case 5:
                 strategy = new GoForWinStrategy();
-                answer = strategy.getBestMove(super.gameMarker); //get move from computer that block any win / get best open
-                if (answer == -1){
+                answer = strategy.getBestMove(super.gameMarker); //get move for computer that finds win
+                if (answer == -1){ //-1 means previous step failed
                     strategy = new BlockWinStrategy();
-                    answer = strategy.getBestMove(human); //get move from computer that block any win / get best open
+                    answer = strategy.getBestMove(human); //get best open move for computer
                 }
-                if (answer == -1) {
+                if (answer == -1) { //-1 means previous step failed
                     TicTacToeStrategy strategy2 = new BestOpenMoveStrategy();
-                    answer = strategy2.getBestMove(); //get move from computer
+                    answer = strategy2.getBestMove(); //get best open move for computer
                 }
                 break;
 
             default:
                 strategy = new RandomMoveStrategy();
-                answer = strategy.getBestMove(); //get move from computer
+                answer = strategy.getBestMove(); //get best open move for computer
                 break;
 
         }
@@ -62,6 +63,5 @@ public class ComputerPlayer extends Player{
         }
 
         return answer;
-
     }
 }
