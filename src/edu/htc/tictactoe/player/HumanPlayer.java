@@ -1,6 +1,7 @@
 package edu.htc.tictactoe.player;
 
 import edu.htc.tictactoe.TicTacToe;
+import edu.htc.tictactoe.UserInput;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class HumanPlayer extends Player {
     public int getMove() {
         int keyboardInput = 0;
 
-        keyboardInput = TicTacToe.getUserNumericResponse("",1,9);
+        keyboardInput = UserInput.getUserNumericResponse("",1,9);
 
         return keyboardInput;
     }
