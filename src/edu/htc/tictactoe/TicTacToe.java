@@ -3,9 +3,6 @@ package edu.htc.tictactoe;
 import edu.htc.tictactoe.player.ComputerPlayer;
 import edu.htc.tictactoe.player.HumanPlayer;
 import edu.htc.tictactoe.player.Player;
-import edu.htc.tictactoe.UserInput;
-
-import java.util.Scanner;
 
 public class TicTacToe {
     public static int levelOfPlay=0;
@@ -20,6 +17,7 @@ public class TicTacToe {
         int playerMove = 0; //player square selection
         boolean spaceOpen = false, roundDone = false;
         char userAnswer;
+        char opponent;
 
         GameBoard gb = new GameBoard();
 
@@ -30,12 +28,11 @@ public class TicTacToe {
 
         myPlayers[0] = new HumanPlayer(UserInput.getPlayerName("Player1"), userAnswer = UserInput.getUserResponse("Enter marker desired (X/O)?", new String[]{"X", "O"})); //set player1
 
-        if (userAnswer == 'X') userAnswer = 'O'; //play as x or o
-            else userAnswer = 'X';
+        opponent = getOpponentMark(userAnswer); //returns opposite mark
 
         if (levelOfPlay > 1){
-            myPlayers[1] = new ComputerPlayer("CPU", userAnswer); //play against pc
-        } else myPlayers[1] = new HumanPlayer(UserInput.getPlayerName("Player2"), userAnswer);
+            myPlayers[1] = new ComputerPlayer("CPU", opponent); //play against pc
+        } else myPlayers[1] = new HumanPlayer(UserInput.getPlayerName("Player2"), opponent);
 
         if (DEBUG_MESSAGES){
             System.out.println("Human Player1: " + myPlayers[0].getGameMarker());
@@ -85,54 +82,13 @@ public class TicTacToe {
 
     /******************************************
      *
-     *      helper methods to get user input
+     *      helper method to get opponent mark
      *
      ******************************************/
-//    private String getPlayerName(String name) {
-//
-//        System.out.println("Please enter name for " + name);  //get player name
-//        Scanner getName = new Scanner(System.in);
-//        name = getName.next().toUpperCase();
-//
-//        return name;
-//    }
-//
-//    public char getUserResponse(String message, String[] values) { //get x/o or y/n response from user
-//        String answer;
-//        char result = ' ';
-//
-//        System.out.println(message);
-//        Scanner getMarker = new Scanner(System.in);
-//
-//        answer = getMarker.next();
-//        while (!answer.equalsIgnoreCase(values[0]) && !answer.equalsIgnoreCase(values[1])) {    //more shapes
-//            System.out.println("Sorry, you must enter either " + values[0] + " or " + values[1]);
-//            answer = getMarker.next();
-//        }
-//        result = answer.toUpperCase().charAt(0);
-//
-//        return result;
-//    }
-//
-//    public static int getUserNumericResponse(String message, int low, int high){
-//        int keyboardInput = 0;
-//
-//        System.out.println(message);
-//
-//        Scanner scanner = new Scanner(System.in);
-//        do {
-//            System.out.println("Enter selection " + low + " - " + high);
-//
-//            try {
-//                keyboardInput = Integer.parseInt(scanner.next());            //get size and catch string data
-//            } catch (NumberFormatException e) {
-//                System.out.println("Please enter a integer value " + low + " - " + high);
-//            } catch (Exception other) {
-//                System.out.println("Something else happened");
-//            }
-//
-//        } while (keyboardInput < low || keyboardInput > high);
-//
-//        return keyboardInput;
-//    }
+    public static char getOpponentMark(char playerMark){
+
+        if (playerMark == 'X')
+            return 'O';
+        else return  'X';
+    }
 }

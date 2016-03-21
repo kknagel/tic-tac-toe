@@ -17,9 +17,7 @@ public class ComputerPlayer extends Player{
 
     public int getMove(){   //process computer play
         char human;
-        if (super.gameMarker == 'X'){ //need this to find block move
-            human = 'O';
-        } else human = 'X';
+        human=TicTacToe.getOpponentMark(super.gameMarker); //returns opposite mark
 
         switch (TicTacToe.levelOfPlay){
             //case 1 is human vs human
